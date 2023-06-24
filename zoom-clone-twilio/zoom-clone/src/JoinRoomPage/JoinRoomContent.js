@@ -6,22 +6,48 @@ import JoinRoomInputs from './JoinRoomInputs';
 
 import OnlyWithAudioCheckbox from './OnlyWithAudioCheckbox';
 
-import { setConnectOnlyWithAudio } from '../store/actions';
+import { setConnectOnlyWithAudio, setIdentity, setRoomId} from '../store/actions';
 
 import RoomNotFoundMeesage from './RoomNotFoundMeesage';
 
 import JoinRoomButtons from './JoinRoomButtons';
 
+import {useNavigate} from 'react-router-dom';
+
+
+import {v4 as uuidv4 } from "uuid";
+
+
 const JoinRoomContent = (props) =>{
 
-        const {isRoomHost, setConnectOnlyWithAudioAction, connectOnlyWithAudio } = props;
+
+        const {isRoomHost, setConnectOnlyWithAudioAction, connectOnlyWithAudio, setRoomIdAction, setIdentityAction} = props;
 
         const [roomIdValue, setRoomIdValue] = useState("");
         const [nameValue, setNameValue] = useState("");
         const[showRoomNotFoundMessage, setShowRoomNotFoundMessage] = useState(false);
-        const handleJoinToRoom = ()=>{
+
+        const navigate = useNavigate();
+
+
+        const handleJoinToRoom = async () => {
             //later add logic to this function
-        }
+        
+            setIdentityAction(nameValue);
+
+            if(!isRoomHost){
+                
+            //check if room exists. If yes, then join the room
+            
+            }else{
+                setRoomIdAction(uuidv4());
+                navigate("/room");
+            }
+        
+        };
+
+
+
 
         return (
             <>
@@ -56,11 +82,18 @@ const mapStoreStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispath) => {
-
+const mapDispatchToProps = (dispatch) => {
+        
     return {  
-        setConnectOnlyWithAudioAction : (onlyWithAudio)=> dispath(setConnectOnlyWithAudio(onlyWithAudio)),
-      };
+        setConnectOnlyWithAudioAction : (onlyWithAudio)=> dispatch(setConnectOnlyWithAudio(onlyWithAudio)),
+
+        setIdentityAction: (identity)=> dispatch(setIdentity(identity)),
+
+        setRoomIdAction: (id) => dispatch(setRoomId(id)),
+
+
+    
+    };
 };
 
 

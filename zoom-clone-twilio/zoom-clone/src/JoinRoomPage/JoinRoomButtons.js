@@ -17,7 +17,7 @@ const Button = ({buttonText, cancelButton, onClickHandler}) => {
 
 }
 
-const JoinRoomButtons = (handleJoinToRoom, isRoomHost) =>{
+const JoinRoomButtons = ({handleJoinToRoom, isRoomHost}) =>{
 
     const successButtonText = isRoomHost? 'Host' : 'Join';
 
@@ -34,8 +34,8 @@ const JoinRoomButtons = (handleJoinToRoom, isRoomHost) =>{
 
         <Button 
             buttonText={successButtonText}
-            onClickHandler={handleJoinToRoom}
-        />
+            onClickHandler={handleJoinToRoom}></Button>
+        
 
         <Button buttonText = 'Cancel'
                 cancelButton

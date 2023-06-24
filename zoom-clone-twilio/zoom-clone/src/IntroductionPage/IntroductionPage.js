@@ -1,11 +1,20 @@
-import React from 'react';
+import React,{ useEffect} from 'react';
 import "./IntroductionPage.css"
 
 import logo from "../resource/logo.png"
 
 import ConnectingButtons from './ConnectingButtons';
 
-const IntroductionPage = () => {
+import {connect} from "react-redux";
+
+import {setIsRoomHost} from "../store/actions";
+
+const IntroductionPage = ({setIsRoomHostAction} ) => {   // ***
+
+    useEffect(()=>{
+       setIsRoomHostAction(false);
+    }, []);
+
 
     return (
 
@@ -22,4 +31,11 @@ const IntroductionPage = () => {
     )
 }
 
-export default IntroductionPage;
+const mapDispatchToProps = (dispath) => {
+
+    return {
+        setIsRoomHostAction : (isRoomHost)=> dispath(setIsRoomHost(isRoomHost)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(IntroductionPage);

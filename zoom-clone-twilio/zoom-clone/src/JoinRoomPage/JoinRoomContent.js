@@ -9,6 +9,9 @@ import OnlyWithAudioCheckbox from './OnlyWithAudioCheckbox';
 import { setConnectOnlyWithAudio } from '../store/actions';
 
 import RoomNotFoundMeesage from './RoomNotFoundMeesage';
+
+import JoinRoomButtons from './JoinRoomButtons';
+
 const JoinRoomContent = (props) =>{
 
         const {isRoomHost, setConnectOnlyWithAudioAction, connectOnlyWithAudio } = props;
@@ -16,6 +19,9 @@ const JoinRoomContent = (props) =>{
         const [roomIdValue, setRoomIdValue] = useState("");
         const [nameValue, setNameValue] = useState("");
         const[showRoomNotFoundMessage, setShowRoomNotFoundMessage] = useState(false);
+        const handleJoinToRoom = ()=>{
+            //later add logic to this function
+        }
 
         return (
             <>
@@ -34,6 +40,10 @@ const JoinRoomContent = (props) =>{
                     />
 
                     <RoomNotFoundMeesage showRoomNotFoundMessage = {showRoomNotFoundMessage} />
+                    <JoinRoomButtons 
+                    isRoomHost={isRoomHost}
+                    handleJoinToRoom={handleJoinToRoom}
+                    ></JoinRoomButtons>
             </>
         );
 };

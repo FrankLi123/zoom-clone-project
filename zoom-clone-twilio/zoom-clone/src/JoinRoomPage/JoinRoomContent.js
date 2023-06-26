@@ -22,7 +22,10 @@ import { checkIfRoomExists } from '../utils/twilioUtils';
 const JoinRoomContent = (props) =>{
 
 
-        const {isRoomHost, setConnectOnlyWithAudioAction, connectOnlyWithAudio, setRoomIdAction, setIdentityAction} = props;
+        const {isRoomHost, 
+            setConnectOnlyWithAudioAction, connectOnlyWithAudio,
+             setRoomIdAction, setIdentityAction,
+             setShowLoadingOverlay } = props;
 
         const [roomIdValue, setRoomIdValue] = useState("");
         const [nameValue, setNameValue] = useState("");
@@ -38,10 +41,14 @@ const JoinRoomContent = (props) =>{
 
             if(!isRoomHost){
                 
+                //Show the Loading Overlay page
+                setShowLoadingOverlay(true);
             //check if room exists. If yes, then join the room
             
                 const roomExists = await checkIfRoomExists(roomIdValue);
-
+                setShowLoadingOverlay(false);
+                
+                
                 if(roomExists){
 
                     setRoomId(roomIdValue);

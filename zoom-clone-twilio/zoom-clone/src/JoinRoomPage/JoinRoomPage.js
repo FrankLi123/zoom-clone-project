@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./JoinRoomPage.css"
 
 import {connect} from "react-redux";
@@ -9,9 +9,11 @@ import JoinRoomTitle from "./JoinRoomTitle"
 
 
 import JoinRoomContent from './JoinRoomContent';
+import LoadingOverlay from './LoadingOverlay';
 const JoinRoomPage = ( props ) => {
 
     const { setIsRoomHostAction , isRoomHost } = props;
+    
 
     useEffect(()=>{
 
@@ -23,12 +25,17 @@ const JoinRoomPage = ( props ) => {
         }
     }, []);
 
+
+    const [showLoadingOverlay, setShowLoadingOverlay] = useState(false);
+
+
     return (
         <div className = 'join_room_page_container'>
             <div className= 'join_room_page_panel'>
 
                 <JoinRoomTitle isRoomHost={isRoomHost} />
-                <JoinRoomContent/>
+                <JoinRoomContent setShowLoadingOverlay={setShowLoadingOverlay}/>
+                {showLoadingOverlay && <LoadingOverlay/>}
             </div>
         </div>
     )

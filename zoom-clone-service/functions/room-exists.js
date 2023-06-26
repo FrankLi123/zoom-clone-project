@@ -22,16 +22,31 @@ exports.handler = function(context, event, callback) {
     // check whether a room exists
     client.video.rooms(roomId).fetch().then( (room) =>{
 
-    
+        if(room) {
+
+            response.setBody({
+                roomExists:true,
+                room,
+            });
         
-        response.setBody({
-            roomExists: false,
-            room,
-        });
+        }else{
+        
+            response.setBody({
+                roomExists: false,
+                room,
+            });
+
+        }
 
         return callback(null, response);
 
-    })
+    }).catch(err =>{
+
+        response.setBody({
+            roomExists: false,
+            err,
+        });
+    });
   
     return callback(null, response);
   };

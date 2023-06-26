@@ -17,6 +17,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {v4 as uuidv4 } from "uuid";
 
+import { checkIfRoomExists } from '../utils/twilioUtils';
 
 const JoinRoomContent = (props) =>{
 
@@ -39,6 +40,17 @@ const JoinRoomContent = (props) =>{
                 
             //check if room exists. If yes, then join the room
             
+                const roomExists = await checkIfRoomExists(roomIdValue);
+
+                if(roomExists){
+
+                    setRoomId(roomIdValue);
+                    navigate("/room");
+
+                }else{
+                    setShowRoomNotFoundMessage(true);
+                }
+
             }else{
                 setRoomIdAction(uuidv4());
                 navigate("/room");

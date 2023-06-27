@@ -33,7 +33,7 @@ const MicButton = ({room}) => {
         
         <div className='video_button_container'>
             <img 
-                className='video_button_img'
+                className='video_button_image'
                 src={isMicMuted ? MicButtonImgOff : MicButtonImg}
                 onClick={handleMicButtonPressed}
             />

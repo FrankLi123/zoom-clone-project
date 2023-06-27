@@ -1,6 +1,8 @@
 
 import React, {useState} from 'react';
 
+import {connect} from "react-redux";
+
 import CameraButton from './CameraButton';
 
 import LeaveRoomButton from './LeaveRoomButton';
@@ -39,4 +41,4 @@ const mapStoreStateToProps = (state) => {
 };
 
 
-export default VideoButtons;
+export default connect(mapStoreStateToProps)(VideoButtons);

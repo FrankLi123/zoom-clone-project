@@ -5,7 +5,7 @@ import React from 'react';
 const VideoSection = () => {
 
     return (
-        <div> List </div>
+        <div className='video_section_container'> Video Section </div>
     );
 };
 

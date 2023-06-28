@@ -17,7 +17,7 @@ const SingleParticipant = ({identity, lastItem }) => {
         
         <p className = "participants_paragraph">{getParticipantName(identity)}</p>
 
-        {!lastItem && <span classNaem='participants_separator_line'></span>}
+        {!lastItem && <span className='participants_separator_line'></span>}
         
         </>
 

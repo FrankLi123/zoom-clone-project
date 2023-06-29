@@ -27,13 +27,15 @@ exports.handler = function(context, event, callback) {
   };
 
   response.setHeaders(headers);
+  client.video.rooms(roomId).fetch().then( (room) =>{
 
-  response.setBody({
+    response.setBody({
 
-    accessToken: token.toJwt(),
- 
+      accessToken: token.toJwt(),
+  
+    });
+
+    return callback(null, response);
   });
-
-  return callback(null, response);
 };
   

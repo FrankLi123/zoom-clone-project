@@ -45,10 +45,14 @@ const JoinRoomContent = (props) =>{
                 setShowLoadingOverlay(true);
             //check if room exists. If yes, then join the room
             
+                console.log("dddd\n\n")
                 const roomExists = await checkIfRoomExists(roomIdValue);
                 setShowLoadingOverlay(false);
                 
                 
+                console.log("wwww\n\n")
+
+                console.log(roomExists)
                 if(roomExists){
 
                     setRoomId(roomIdValue);

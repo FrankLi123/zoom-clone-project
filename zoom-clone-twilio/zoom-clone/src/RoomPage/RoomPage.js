@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
 import "./RoomPage.css"
 
 import ParticipantsSection from './ParticipantsSection/ParticipantsSection';
@@ -7,7 +7,24 @@ import ChatSection from './ChatSection/ChatSection';
 
 import VideoSection from './VideoSection/VideoSection';
 
-const RoomPage = () => {
+import {connect} from "react-redux";
+
+import { setTwilioAccessToken } from '../store/actions';
+
+import { getTokenFromTwilio } from '../utils/twilioUtils';
+const RoomPage = (props) => {
+
+// receive the token info from 'props'
+
+    const {identity, setTwilioAccessTokenAction} = props;
+
+    useEffect (()=>{
+
+        getTokenFromTwilio(setTwilioAccessTokenAction, identity);
+
+    }, []);
+        
+
 
     return (
 
@@ -23,4 +40,21 @@ const RoomPage = () => {
     );
 };
 
-export default RoomPage;
+
+const mapStoreStateToProps = (state)=>{
+
+        return {
+            ...state,
+        };
+};
+
+const mapActionsToProps =(dispatch)=>{
+
+    return {
+
+        setTwilioAccessTokenAction : (token) => dispatch(setTwilioAccessToken)
+
+    }
+}
+
+export default connect(mapActionsToProps)(RoomPage);

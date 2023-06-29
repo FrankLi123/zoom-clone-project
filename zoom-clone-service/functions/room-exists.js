@@ -2,53 +2,35 @@ exports.handler = function(context, event, callback) {
 
     // get client 
 
-    const client = context.getTwilioClient();
+    // const client = context.getTwilioClient();
 
-    const roomId = event.roomId; // ??? ??? 
+    const accountSid = process.env.ACCOUNT_SID;
+    const authToken = process.env.AUTH_TOKEN;
+    const apiKey = process.env.API_KEY;
+    const apiSecret = process.env.API_SECRET;
+
+    const client = require('twilio')(accountSid, authToken);
+
+    const roomId = event.roomId; 
 
     const response = new Twilio.Response();
 
     const headers = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin":"*",
+      "Access-Control-Allow-Methods":"GET, PUT, POST, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers":"Content-Type",
+      "Content-Type":"application/json",
     };
   
-    response.setHeaders(headers);
-  
+    response.setHeaders(headers);  
 
-    // check whether a room exists
-    client.video.rooms(roomId).fetch().then( (room) =>{
-
-        if(room) {
-
-            response.setBody({
-                roomExists:true,
-                room,
-            });
+    client.video.v1.rooms('sswsw').fetch().then( (room) =>{
         
-        }else{
-        
-            response.setBody({
-                roomExists: false,
-                room,
-            });
-
-        }
-
-        return callback(null, response);
-
-    }).catch(err =>{
-
         response.setBody({
             roomExists: false,
-            err,
         });
-    });
-  
-    return callback(null, response);
-  };
 
-  // Testing Github repo recording
+    })
+
+    return callback(response);
+  };

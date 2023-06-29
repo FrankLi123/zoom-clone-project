@@ -12,6 +12,10 @@ import {connect} from "react-redux";
 import { setTwilioAccessToken } from '../store/actions';
 
 import { getTokenFromTwilio } from '../utils/twilioUtils';
+
+import { store } from '../store/store';
+
+
 const RoomPage = (props) => {
 
 // receive the token info from 'props'

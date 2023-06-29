@@ -3,6 +3,24 @@ import axios from 'axios';
 
 import {v4 as uuidv4} from "uuid";
 
+import { store } from '../store/store';
+
+import{connect, LocalAudioTrack, LocalVideoTrack} from 'twilio-video';
+
+const audioConstraints = {
+    video : false,
+    audio : true,
+}
+
+
+const videoConstraints = {
+    video : {
+        width: 640,
+        height: 480
+    },
+    audio : true,
+}
+
 
 export const getTokenFromTwilio = async ( setAccessToken, identity) => {
 
@@ -21,11 +39,28 @@ export const getTokenFromTwilio = async ( setAccessToken, identity) => {
 
         setAccessToken( data.accessToken);
     }
-
-
-
 }
 
+
+
+const connectToRoom = async(accessToken, roomId= 'test-room', setRoom) => {
+
+    const onlyWithAudio = store.getState().connectOnlyWithAudio;
+
+    const constraints = onlyWithAudio ? audioConstraints : videoConstraints;
+
+
+    // browser has access to this function - navigator...
+    navigator.mediaDevices.getUserMedia( constraints).then((stream)=>{
+
+
+
+    }).catch( (err)=>{
+
+        console.log("error occured")
+        console.log(err);
+    })
+}
 
 
 export const checkIfRoomExists = async (roomId) => {

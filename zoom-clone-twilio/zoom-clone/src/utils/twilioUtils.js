@@ -43,7 +43,7 @@ export const getTokenFromTwilio = async ( setAccessToken, identity) => {
 
 
 
-const connectToRoom = async(accessToken, roomId= 'test-room', setRoom) => {
+export const connectToRoom = async(accessToken, roomId= 'test-room', setRoom) => {
 
     const onlyWithAudio = store.getState().connectOnlyWithAudio;
 
@@ -51,8 +51,34 @@ const connectToRoom = async(accessToken, roomId= 'test-room', setRoom) => {
 
 
     // browser has access to this function - navigator...
-    navigator.mediaDevices.getUserMedia( constraints).then((stream)=>{
+    navigator.mediaDevices.getUserMedia( constraints).then( async (stream)=>{
 
+        let tracks;
+
+        // create data track for messages
+        const audioTrack = new LocalAudioTrack(stream.getAudioTracks()[0]); // always have only one audio track at the beginning
+
+
+        let videoTrack;
+
+        if(!onlyWithAudio){
+
+            videoTrack = new LocalVideoTrack(stream.getVideoTracks()[0]);
+            tracks = [audioTrack, videoTrack ]
+        }else{
+
+            tracks = [audioTrack]
+        }
+
+
+        const room = await connect(accessToken, { 
+
+            name : roomId,
+            tracks
+
+        });
+
+        setRoom(room);
 
 
     }).catch( (err)=>{

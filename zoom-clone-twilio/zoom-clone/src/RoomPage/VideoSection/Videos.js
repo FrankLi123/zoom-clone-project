@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {connect} from "react-redux";
 
@@ -7,7 +7,22 @@ import RoomLabel from './RoomLabel';
 
 import TwilioRoom from './TwilioRoom/TwilioRoom';
 
-const Videos = ({room, setRoom, roomId }) => {
+
+import { connectToRoom } from '../../utils/twilioUtils';
+
+const Videos = ({room, setRoom, roomId, twilioAccessToken }) => {
+
+
+    useEffect( ()=>{
+
+        if( twilioAccessToken){
+
+            connectToRoom(twilioAccessToken, room, setRoom);
+
+        }
+
+    }, [twilioAccessToken]);
+
 
     return (
         <div className='videos_container'>

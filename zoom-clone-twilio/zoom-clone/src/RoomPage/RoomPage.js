@@ -61,4 +61,4 @@ const mapActionsToProps =(dispatch)=>{
     }
 }
 
-export default connect(mapActionsToProps)(RoomPage);
+export default connect(mapActionsToProps, mapActionsToProps)(RoomPage);

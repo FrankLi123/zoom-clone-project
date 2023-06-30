@@ -78,6 +78,7 @@ export const connectToRoom = async(accessToken, roomId= 'test-room', setRoom) =>
 
         });
 
+        console.log("succesfully connected to Twilio room");
         setRoom(room);
 
 

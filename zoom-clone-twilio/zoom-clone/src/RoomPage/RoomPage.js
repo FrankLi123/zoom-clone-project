@@ -56,7 +56,7 @@ const mapActionsToProps =(dispatch)=>{
 
     return {
 
-        setTwilioAccessTokenAction : (token) => dispatch(setTwilioAccessToken)
+        setTwilioAccessTokenAction : (token) => dispatch(setTwilioAccessToken(token))
 
     }
 }

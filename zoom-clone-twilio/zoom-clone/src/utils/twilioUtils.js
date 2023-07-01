@@ -6,7 +6,7 @@ import {v4 as uuidv4} from "uuid";
 import { store } from '../store/store';
 
 import{connect, LocalAudioTrack, LocalVideoTrack} from 'twilio-video';
-
+;
 const audioConstraints = {
     video : false,
     audio : true,
@@ -92,6 +92,8 @@ export const connectToRoom = async(accessToken, roomId= 'test-room', setRoom) =>
 
 export const checkIfRoomExists = async (roomId) => {
     
+    // const axios = require('axios');
+
     try{
         const response = await axios.get(
       `https://zoom-clone-service-5180-dev.twil.io/room-exists?roomId=${roomId}`
